@@ -4,7 +4,7 @@ Donate link: https://ayecode.io
 Tags: page builder, bootstrap, blocks, builder, design
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 0.1.39
+Stable tag: 0.1.40
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -182,6 +182,10 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 
 == Changelog ==
 
+= 0.1.40 - 2025-07-31 =
+* BS > Icon Box renders wrong heading classes - FIXED
+* BS > Post Title leads to wrong meta title with AISEO - FIXED
+
 = 0.1.39 - 2025-07-24 =
 * AUI & FA packages updated - CHANGED
 
@@ -278,7 +282,7 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 * Accordion block now has option to enable FAQ Schema - ADDED
 * New BS > Scroll Top block for scrolling the page back to the top - NEW/ADDED
 * BS > Post Title will now dynamically change h tag if inside GD Loop - ADDED
-* BD > Post Title link color not showing correct color when set - FIXED
+* BS > Post Title link color not showing correct color when set - FIXED
 * BS > Share block current URl function improved - CHANGED
 * BS > Share block will use new twitter X logo if current Font Awesome version supports it - CHANGED
 * BS > Container block background as featured image will now USE GD location, category and CPT images when available - ADDED
