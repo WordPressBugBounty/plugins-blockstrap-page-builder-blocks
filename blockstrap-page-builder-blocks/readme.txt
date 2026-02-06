@@ -3,8 +3,8 @@ Contributors: stiofansisland, paoltaia, ayecode
 Donate link: https://ayecode.io
 Tags: page builder, bootstrap, blocks, builder, design
 Requires at least: 6.0
-Tested up to: 6.8
-Stable tag: 0.1.43
+Tested up to: 6.9
+Stable tag: 0.1.51
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -181,6 +181,25 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 7. Image Gallery.
 
 == Changelog ==
+
+= 0.1.51 - 2026-01-22 =
+* Comments cookies checkbox is always visible to non-logged-in users - FIXED
+
+= 0.1.50 - 2025-12-09 =
+* WordPress 6.9 compatibility check - COMPATIBILITY
+
+= 0.1.49 - 2025-11-13 =
+* BS > Button GD post meta is not working - FIXED
+
+= 0.1.48 - 2025-10-31 =
+* Merge SD 1.2.29 - CHANGED
+
+= 0.1.46 - 2025-10-30 =
+* BS > Share add unique CSS class to each item - ADDED
+
+= 0.1.44 - 2025-10-16 =
+* BS > Post Info fontawesome icon class is not working - FIXED
+* Hover style is not working on clone BS element - FIXED
 
 = 0.1.43 - 2025-10-02 =
 * Breadcrumb link texts are not translatable - FIXED
