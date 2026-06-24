@@ -4,7 +4,7 @@ Donate link: https://ayecode.io
 Tags: page builder, bootstrap, blocks, builder, design
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 0.1.55
+Stable tag: 0.1.56
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -182,8 +182,11 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 
 == Changelog ==
 
+= 0.1.56 - 2026-06-24 =
+* Merge AUI 0.2.50 & SD 1.2.33 - CHANGED
+
 = 0.1.55 - 2026-06-10 =
-* Merge AUI 0.2.49 & SD 1.2.32
+* Merge AUI 0.2.49 & SD 1.2.32 - CHANGED
 
 = 0.1.54 - 2026-04-02 =
 * WordPress 7.0 compatibility - COMPATIBILITY
