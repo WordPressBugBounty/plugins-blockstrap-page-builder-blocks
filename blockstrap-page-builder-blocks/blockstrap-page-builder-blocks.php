@@ -11,7 +11,7 @@
  * Plugin Name: BlockStrap Page Builder Blocks
  * Plugin URI: https://ayecode.io/
  * Description: BlockStrap - A FSE page builder for WordPress
- * Version: 0.1.56
+ * Version: 0.1.57
  * Author: AyeCode
  * Author URI: https://ayecode.io
  * Text Domain: blockstrap-page-builder-blocks
@@ -21,7 +21,7 @@
  */
 
 
-define( 'BLOCKSTRAP_BLOCKS_VERSION', '0.1.56' );
+define( 'BLOCKSTRAP_BLOCKS_VERSION', '0.1.57' );
 
 /**
  * The BlockStrap Class
@@ -60,10 +60,11 @@ final class BlockStrap {
 	 * @return void
 	 */
 	private function init_hooks() {
-		add_action('enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ], 1000);
-		add_filter('render_block', [ $this, 'force_render_blocks_on_templates' ], 100000, 2);
-		add_filter('ayecode-ui-settings', [ $this, 'aui_settings_overwrite' ], 10, 3);
-		add_filter('ayecode-ui-default-settings', [ $this, 'aui_default_settings_overwrite' ], 10, 2);
+		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_scripts' ], 1000 );
+		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_assets' ], 100 );
+		add_filter( 'render_block', [ $this, 'force_render_blocks_on_templates' ], 100000, 2 );
+		add_filter( 'ayecode-ui-settings', [ $this, 'aui_settings_overwrite' ], 10, 3 );
+		add_filter( 'ayecode-ui-default-settings', [ $this, 'aui_default_settings_overwrite' ], 10, 2 );
 	}
 
 	/**
@@ -129,7 +130,7 @@ final class BlockStrap {
 		global $wp_version;
 
 		// WP 6.3 moved the loop column settings from query block to post-template block
-		if (version_compare($wp_version, '6.3', '<')) {
+		if ( version_compare( $wp_version, '6.3', '<' ) ) {
 			$js_filters_filename = 'blockstrap-block-filters.js';
 		} else {
 			$js_filters_filename = 'blockstrap-block-filters-new.js';
@@ -147,21 +148,6 @@ final class BlockStrap {
 			BLOCKSTRAP_BLOCKS_VERSION
 		);
 
-		wp_enqueue_style(
-			'blockstrap-blocks-style',
-			BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/style.css',
-			'',
-			BLOCKSTRAP_BLOCKS_VERSION
-		);
-
-		wp_enqueue_style(
-			'blockstrap-blocks-style-admin',
-			BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/block-editor.css',
-			[ 'blockstrap-blocks-style' ],
-			BLOCKSTRAP_BLOCKS_VERSION
-		);
-
-
 		wp_enqueue_script(
 			'blockstrap-blocks-animated-headline',
 			BLOCKSTRAP_BLOCKS_PLUGIN_URL . 'assets/js/animated-headline.min.js',
@@ -178,12 +164,60 @@ final class BlockStrap {
 			[ 'in_footer' => true ]
 		);
 
-		wp_enqueue_style(
-			'blockstrap-blocks-animated-headline',
-			BLOCKSTRAP_BLOCKS_PLUGIN_URL . 'assets/css/animated-headline.css',
-			null,
-			BLOCKSTRAP_BLOCKS_VERSION
-		);
+		// Load block styles for older than WordPress 6.9.
+		if ( version_compare( $wp_version, '6.9', '<' ) ) {
+			wp_enqueue_style(
+				'blockstrap-blocks-style',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/style.css',
+				'',
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+
+			wp_enqueue_style(
+				'blockstrap-blocks-style-admin',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/block-editor.css',
+				[ 'blockstrap-blocks-style' ],
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+
+			wp_enqueue_style(
+				'blockstrap-blocks-animated-headline',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL . 'assets/css/animated-headline.css',
+				null,
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+		}
+	}
+
+	/**
+	 * Enqueue styles for block assets (both editor and frontend).
+	 * This ensures compatibility with WordPress 6.9+ requirements.
+	 */
+	public function enqueue_block_assets() {
+		global $wp_version;
+
+		if ( is_admin() && version_compare( $wp_version, '6.9', '>=' ) ) {
+			wp_enqueue_style(
+				'blockstrap-blocks-style',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/style.css',
+				'',
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+
+			wp_enqueue_style(
+				'blockstrap-blocks-style-admin',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL.'assets/css/block-editor.css',
+				[ 'blockstrap-blocks-style' ],
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+
+			wp_enqueue_style(
+				'blockstrap-blocks-animated-headline',
+				BLOCKSTRAP_BLOCKS_PLUGIN_URL . 'assets/css/animated-headline.css',
+				null,
+				BLOCKSTRAP_BLOCKS_VERSION
+			);
+		}
 	}
 
 	/**

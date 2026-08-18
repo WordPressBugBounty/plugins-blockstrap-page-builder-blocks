@@ -640,6 +640,10 @@ class BlockStrap_Widget_Post_Info extends WP_Super_Duper {
 						);
 					}
 				}
+			} else {
+				if ( ! $is_preview ) {
+					return;
+				}
 			}
 
 			if ( $is_preview && empty( $text ) ) {

@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WP_Super_Duper' ) ) {
 
-	define( 'SUPER_DUPER_VER', '1.2.33' );
+	define( 'SUPER_DUPER_VER', '1.2.35' );
 
 	/**
 	 * A Class to be able to create a Widget, Shortcode or Block to be able to output content for WordPress.
@@ -325,9 +325,9 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 				<textarea id='sd-shortcode-output' disabled></textarea>
 				<div id='sd-shortcode-output-actions'>
 					<?php if ( $editor_id != '' ) { ?>
-						<button class="button sd-insert-shortcode-button" onclick="sd_insert_shortcode(<?php if ( ! empty( $editor_id ) ) { echo "'" . $editor_id . "'"; } ?>)"><?php esc_html_e( 'Insert shortcode', 'ayecode-connect' ); ?></button>
+						<button class="button sd-insert-shortcode-button" onclick="sd_insert_shortcode(<?php if ( ! empty( $editor_id ) ) { echo "'" . $editor_id . "'"; } ?>)"><?php esc_html_e( 'Insert Shortcode', 'ayecode-connect' ); ?></button> 
 					<?php } ?>
-					<button class="button" onclick="sd_copy_to_clipboard()"><?php esc_html_e( 'Copy shortcode' ); ?></button>
+					<button class="button" onclick="sd_copy_to_clipboard()"><?php esc_html_e( 'Copy Shortcode', 'ayecode-connect' ); ?></button>
 				</div>
 			</div>
 			<?php
@@ -596,7 +596,8 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 			<style>
 				.sd-shortcode-left-wrap {
 					float: left;
-					width: 60%;
+					width: calc(60% - .75rem);
+					padding-top: .75rem;
 				}
 
 				.sd-shortcode-left-wrap .gd-help-tip {
@@ -691,7 +692,8 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 
 				.sd-shortcode-right-wrap {
 					float: right;
-					width: 35%;
+					width: 40%;
+					padding-top: .75rem;
 				}
 
 				#sd-shortcode-output {
@@ -703,11 +705,9 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 					padding: 2px 6px;
 					line-height: 1.4;
 					resize: vertical;
-				}
-
-				#sd-shortcode-output {
 					height: 250px;
 					width: 100%;
+					margin-bottom: .75rem;
 				}
 
 				<?php if ( function_exists( 'generate_sections_sections_metabox' ) ) { ?>
@@ -1206,7 +1206,7 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 						jQuery($this).data('sd-widget-enabled', true);
 					}
 
-					var $button = '<button title="<?php _e( 'Advanced Settings', 'ayecode-connect' );?>" style="line-height: 28px;" class="button button-primary right sd-advanced-button" onclick="sd_toggle_advanced(this);return false;"><span class="dashicons dashicons-admin-settings" style="width: 28px;font-size: 28px;"></span></button>';
+					var $button = '<button title="<?php esc_attr_e( 'Advanced Settings', 'ayecode-connect' );?>" style="line-height:1.5rem;margin:.5rem 0 0 0!important;" class="button button-primary right sd-advanced-button" onclick="sd_toggle_advanced(this);return false;"><span class="dashicons dashicons-admin-settings" style="width:1.5rem;font-size:1.5rem;height:1.5rem;line-height:1.5rem;margin:0;padding:0"></span></button>';
 					var form = $form ? $form : jQuery($this).parents('' + $selector + '');
 
 					if (jQuery($this).val() == '1' && jQuery(form).find('.sd-advanced-button').length == 0) {
@@ -1800,9 +1800,14 @@ if ( ! class_exists( 'WP_Super_Duper' ) ) {
 		 * @since 1.0.4 Added block_wrap property which will set the block wrapping output element ie: div, span, p or empty for no wrap.
 		 */
 		public function block() {
-			global $sd_is_js_functions_loaded, $aui_bs5;
+			global $wp_version, $sd_is_js_functions_loaded, $aui_bs5;
 
-			$show_advanced = $this->block_show_advanced();
+			$show_advanced     = $this->block_show_advanced();
+			$block_api_version = version_compare( $wp_version, '6.9', '>=' ) ? 3 : 2; // Block apiVersion
+
+			if ( isset( $this->options['block-api-version'] ) && absint( $this->options['block-api-version'] ) > 0 ) {
+				$block_api_version = absint( $this->options['block-api-version'] );
+			}
 
 			ob_start();
 			?>
@@ -2565,7 +2570,7 @@ jQuery(function() {
 					 *                             registered; otherwise `undefined`.
 					 */
 					registerBlockType('<?php echo str_replace( "_", "-", sanitize_title_with_dashes( $this->options['textdomain'] ) . '/' . sanitize_title_with_dashes( $this->options['class_name'] ) );  ?>', { // Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-						apiVersion: <?php echo isset($this->options['block-api-version']) ? absint($this->options['block-api-version']) : 2 ; ?>,
+						apiVersion: <?php echo absint( $block_api_version ); ?>,
 						title: '<?php echo addslashes( $this->options['name'] ); ?>', // Block title.
 						description: '<?php echo addslashes( $this->options['widget_ops']['description'] )?>', // Block title.
 						icon: <?php echo $this->get_block_icon( $this->options['block-icon'] );?>,//'<?php echo isset( $this->options['block-icon'] ) ? esc_attr( $this->options['block-icon'] ) : 'shield-alt';?>', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
@@ -3139,7 +3144,7 @@ const { deviceType } = typeof wp.data.useSelect !== 'undefined' ? wp.data.useSel
 									if ( $show_advanced ) {
 									?>
 									el('div', {
-											style: {'padding-left': '16px','padding-right': '16px'}
+											style: {'paddingLeft': '16px','paddingRight': '16px'}
 										},
 										el(
 											wp.components.ToggleControl,
