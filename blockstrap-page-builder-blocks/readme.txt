@@ -3,8 +3,8 @@ Contributors: stiofansisland, paoltaia, ayecode
 Donate link: https://ayecode.io
 Tags: page builder, bootstrap, blocks, builder, design
 Requires at least: 6.0
-Tested up to: 7.0
-Stable tag: 0.1.57
+Tested up to: 7.1
+Stable tag: 0.1.58
 Requires PHP: 7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -148,13 +148,17 @@ Add an animated headline to your site, this supports highlight and animations.
 ## Get BlockStrap Today!
 Take your WordPress site to the next level with the BlockStrap plugin. Experience the power of Bootstrap in your WordPress block editor today!
 
+== Security ==
+
+To report a security vulnerability, please review our [vulnerability disclosure policy](https://ayecode.io/vulnerability-disclosure-policy/).
+
 == Installation ==
 
 = Minimum Requirements =
 
 * WordPress 6.0 or greater
-* PHP version 5.6 or greater
-* MySQL version 5.0 or greater
+* PHP version 7.2 or greater
+* MySQL version 8.0 or greater
 
 = AUTOMATIC INSTALLATION =
 
@@ -181,6 +185,9 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 7. Image Gallery.
 
 == Changelog ==
+
+= 0.1.58 - 2026-09-09 =
+* Upgrade AUI 0.2.53 & FA 1.1.12 - CHANGED
 
 = 0.1.57 - 2026-08-18 =
 * Enqueue block editor styles via block assets for iframe compatibility - COMPATIBILITY
